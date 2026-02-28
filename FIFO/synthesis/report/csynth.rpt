@@ -1,0 +1,193 @@
+
+
+================================================================
+== Synthesis Summary Report of 'debug_fifo'
+================================================================
++ General Information: 
+    * Date:           Wed Feb 18 22:38:35 2026
+    * Version:        2025.1 (Build 6135595 on May 21 2025)
+    * Project:        debug_fifo
+    * Solution:       hls (Vivado IP Flow Target)
+    * Product family: zynquplus
+    * Target device:  xck26-sfvc784-2LV-c
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +--------------------------------------------------------+---------+-------+---------+-------+----------+---------+------+----------+--------+----+-----------+-----------+-----+
+    |                         Modules                        |  Issue  |       |     Latency     | Iteration|         | Trip |          |        |    |           |           |     |
+    |                         & Loops                        |   Type  | Slack | (cycles)|  (ns) |  Latency | Interval| Count| Pipelined|  BRAM  | DSP|     FF    |    LUT    | URAM|
+    +--------------------------------------------------------+---------+-------+---------+-------+----------+---------+------+----------+--------+----+-----------+-----------+-----+
+    |+ debug_fifo*                                           |   Timing|  -0.00|        -|      -|         -|        -|     -|  dataflow|  4 (1%)|   -|  2536 (1%)|  2930 (2%)|    -|
+    | + entry_proc                                           |        -|  12.71|        0|  0.000|         -|        0|     -|        no|       -|   -|    2 (~0%)|   20 (~0%)|    -|
+    | + Block_entry_proc                                     |        -|  13.12|        0|  0.000|         -|        0|     -|        no|       -|   -|   64 (~0%)|   99 (~0%)|    -|
+    | + Loop_VITIS_LOOP_20_1_proc                            |   Timing|  -0.00|        -|      -|         -|        -|     -|        no|       -|   -|  206 (~0%)|  361 (~0%)|    -|
+    |  + Loop_VITIS_LOOP_20_1_proc_Pipeline_VITIS_LOOP_20_1  |   Timing|  -0.00|        -|      -|         -|        0|     -|    rewind|       -|   -|   68 (~0%)|  135 (~0%)|    -|
+    |   o VITIS_LOOP_20_1                                    |        -|  14.55|        -|      -|         3|        1|     -|       yes|       -|   -|          -|          -|    -|
+    | + Loop_VITIS_LOOP_25_2_proc                            |   Timing|  -0.00|        -|      -|         -|        -|     -|        no|       -|   -|  204 (~0%)|  386 (~0%)|    -|
+    |  + Loop_VITIS_LOOP_25_2_proc_Pipeline_VITIS_LOOP_25_2  |   Timing|  -0.00|        -|      -|         -|        0|     -|    rewind|       -|   -|   68 (~0%)|  139 (~0%)|    -|
+    |   o VITIS_LOOP_25_2                                    |        -|  14.55|        -|      -|         3|        1|     -|       yes|       -|   -|          -|          -|    -|
+    +--------------------------------------------------------+---------+-------+---------+-------+----------+---------+------+----------+--------+----+-----------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface   | Read/Write | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|             |            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++-------------+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_gmem0 | READ_ONLY  | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          | BRAM=2            |
+| m_axi_gmem1 | WRITE_ONLY | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |                   |
++-------------+------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register   | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL       | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER       | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER     | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR     | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | in_data_1  | 0x10   | 32    | W      | Data signal of in_data           |                                                                      |
+| s_axi_control | in_data_2  | 0x14   | 32    | W      | Data signal of in_data           |                                                                      |
+| s_axi_control | out_data_1 | 0x1c   | 32    | W      | Data signal of out_data          |                                                                      |
+| s_axi_control | out_data_2 | 0x20   | 32    | W      | Data signal of out_data          |                                                                      |
+| s_axi_control | size       | 0x28   | 32    | W      | Data signal of size              |                                                                      |
++---------------+------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------+
+| Argument | Direction | Datatype      |
++----------+-----------+---------------+
+| in_data  | in        | float const * |
+| out_data | out       | float*        |
+| size     | in        | int           |
++----------+-----------+---------------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+--------------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                              |
++----------+---------------+-----------+----------+--------------------------------------+
+| in_data  | m_axi_gmem0   | interface |          | channel=0                            |
+| in_data  | s_axi_control | register  | offset   | name=in_data_1 offset=0x10 range=32  |
+| in_data  | s_axi_control | register  | offset   | name=in_data_2 offset=0x14 range=32  |
+| out_data | m_axi_gmem1   | interface |          | channel=0                            |
+| out_data | s_axi_control | register  | offset   | name=out_data_1 offset=0x1c range=32 |
+| out_data | s_axi_control | register  | offset   | name=out_data_2 offset=0x20 range=32 |
+| size     | s_axi_control | register  |          | name=size offset=0x28 range=32       |
++----------+---------------+-----------+----------+--------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------+----------+-------+-----------------+--------------------------------+
+| HW Interface | Direction | Length   | Width | Loop            | Loop Location                  |
++--------------+-----------+----------+-------+-----------------+--------------------------------+
+| m_axi_gmem0  | read      | variable | 32    | VITIS_LOOP_20_1 | C:/RP-FPGA/FIFO/fifo.cpp:20:19 |
+| m_axi_gmem1  | write     | variable | 32    | VITIS_LOOP_25_2 | C:/RP-FPGA/FIFO/fifo.cpp:25:22 |
++--------------+-----------+----------+-------+-----------------+--------------------------------+
+
+* All M_AXI Variable Accesses
++--------------+----------+--------------------------------+-----------+--------------+----------+-----------------+--------------------------------+------------+---------------------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Access Location                | Direction | Burst Status | Length   | Loop            | Loop Location                  | Resolution | Problem                                                                                                 |
++--------------+----------+--------------------------------+-----------+--------------+----------+-----------------+--------------------------------+------------+---------------------------------------------------------------------------------------------------------+
+| m_axi_gmem0  | in_data  | C:/RP-FPGA/FIFO/fifo.cpp:22:14 | read      | Widen Fail   |          | VITIS_LOOP_20_1 | C:/RP-FPGA/FIFO/fifo.cpp:20:19 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem0  | in_data  | C:/RP-FPGA/FIFO/fifo.cpp:22:14 | read      | Inferred     | variable | VITIS_LOOP_20_1 | C:/RP-FPGA/FIFO/fifo.cpp:20:19 |            |                                                                                                         |
+| m_axi_gmem1  | out_data | C:/RP-FPGA/FIFO/fifo.cpp:27:14 | write     | Widen Fail   |          | VITIS_LOOP_25_2 | C:/RP-FPGA/FIFO/fifo.cpp:25:22 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem1  | out_data | C:/RP-FPGA/FIFO/fifo.cpp:27:14 | write     | Inferred     | variable | VITIS_LOOP_25_2 | C:/RP-FPGA/FIFO/fifo.cpp:25:22 |            |                                                                                                         |
++--------------+----------+--------------------------------+-----------+--------------+----------+-----------------+--------------------------------+------------+---------------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2025.1%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------------------------+-----+--------+-----------+--------+----------+---------+
+| Name                                                   | DSP | Pragma | Variable  | Op     | Impl     | Latency |
++--------------------------------------------------------+-----+--------+-----------+--------+----------+---------+
+| + debug_fifo                                           | 0   |        |           |        |          |         |
+|  + Block_entry_proc                                    | 0   |        |           |        |          |         |
+|    icmp_ln20_fu_20_p2                                  |     |        | icmp_ln20 | setgt  | auto     | 0       |
+|    p_out_0_fu_26_p3                                    |     |        | p_out_0   | select | auto_sel | 0       |
+|  + Loop_VITIS_LOOP_20_1_proc                           | 0   |        |           |        |          |         |
+|   + Loop_VITIS_LOOP_20_1_proc_Pipeline_VITIS_LOOP_20_1 | 0   |        |           |        |          |         |
+|     icmp_ln20_fu_92_p2                                 |     |        | icmp_ln20 | setlt  | auto     | 0       |
+|     add_ln20_fu_98_p2                                  |     |        | add_ln20  | add    | fabric   | 0       |
+|  + Loop_VITIS_LOOP_25_2_proc                           | 0   |        |           |        |          |         |
+|   + Loop_VITIS_LOOP_25_2_proc_Pipeline_VITIS_LOOP_25_2 | 0   |        |           |        |          |         |
+|     icmp_ln25_fu_96_p2                                 |     |        | icmp_ln25 | setlt  | auto     | 0       |
+|     add_ln25_fu_102_p2                                 |     |        | add_ln25  | add    | fabric   | 0       |
++--------------------------------------------------------+-----+--------+-----------+--------+----------+---------+
+
+
+================================================================
+== Storage Report
+================================================================
++--------------------+--------------+-------------+------+------+--------+----------------+--------+---------+------------------+
+| Name               | Usage        | Type        | BRAM | URAM | Pragma | Variable       | Impl   | Latency | Bitwidth, Depth, |
+|                    |              |             |      |      |        |                |        |         | Banks            |
++--------------------+--------------+-------------+------+------+--------+----------------+--------+---------+------------------+
+| + debug_fifo       |              |             | 4    | 0    |        |                |        |         |                  |
+|   control_s_axi_U  | interface    | s_axilite   |      |      |        |                |        |         |                  |
+|   gmem0_m_axi_U    | interface    | m_axi       | 2    |      |        |                |        |         |                  |
+|   gmem1_m_axi_U    | interface    | m_axi       |      |      |        |                |        |         |                  |
+|   out_data_c_U     | fifo channel | scalar prop |      |      |        | out_data_c     | srl    | 0       | 64, 4, 1         |
+|   p_loc_channel_U  | fifo channel | task level  |      |      |        | p_loc_channel  | srl    | 0       | 31, 2, 1         |
+|   p_loc6_channel_U | fifo channel | task level  |      |      |        | p_loc6_channel | srl    | 0       | 31, 3, 1         |
+|   size_c_U         | fifo channel | scalar prop |      |      |        | size_c         | srl    | 0       | 32, 2, 1         |
+|   fifo_stream_U    | fifo channel | stream      | 2    |      |        | fifo_stream    | memory | 0       | 32, 1024, 1      |
++--------------------+--------------+-------------+------+------+--------+----------------+--------+---------+------------------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Pragmas with Warnings
++----------+---------+-------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Type     | Options | Location                                        | Messages                                                                                                                                                                           |
++----------+---------+-------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DATAFLOW |         | ../../../RP-FPGA/FIFO/fifo.cpp:18 in debug_fifo | Since the only kind of statements allowed in a canonical dataflow region are variable declarations and function calls, the compiler may not be able to correctly handle the region |
++----------+---------+-------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++-----------+----------------------------------------------------------+--------------------------------------------------------------+
+| Type      | Options                                                  | Location                                                     |
++-----------+----------------------------------------------------------+--------------------------------------------------------------+
+| INTERFACE | m_axi port=in_data offset=slave bundle=gmem0 depth=1024  | ../../../RP-FPGA/FIFO/fifo.cpp:10 in debug_fifo, in_data     |
+| INTERFACE | m_axi port=out_data offset=slave bundle=gmem1 depth=1024 | ../../../RP-FPGA/FIFO/fifo.cpp:11 in debug_fifo, out_data    |
+| INTERFACE | s_axilite port=size                                      | ../../../RP-FPGA/FIFO/fifo.cpp:12 in debug_fifo, size        |
+| INTERFACE | s_axilite port=return                                    | ../../../RP-FPGA/FIFO/fifo.cpp:13 in debug_fifo, return      |
+| STREAM    | variable=fifo_stream depth=1024                          | ../../../RP-FPGA/FIFO/fifo.cpp:16 in debug_fifo, fifo_stream |
+| PIPELINE  | ii=1                                                     | ../../../RP-FPGA/FIFO/fifo.cpp:21 in debug_fifo              |
+| PIPELINE  | ii=1                                                     | ../../../RP-FPGA/FIFO/fifo.cpp:26 in debug_fifo              |
++-----------+----------------------------------------------------------+--------------------------------------------------------------+
+
+

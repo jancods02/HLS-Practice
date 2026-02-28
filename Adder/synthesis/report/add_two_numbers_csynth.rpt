@@ -1,0 +1,130 @@
+
+
+================================================================
+== Vitis HLS Report for 'add_two_numbers'
+================================================================
+* Date:           Tue Feb 24 10:26:54 2026
+
+* Version:        2025.1 (Build 6135595 on May 21 2025)
+* Project:        Adder_hls
+* Solution:       hls (Vivado IP Flow Target)
+* Product family: zynquplus
+* Target device:  xck26-sfvc784-2LV-c
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  3.016 ns|     0.20 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        0|        0|      0 ns|      0 ns|    1|    1|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+------+--------+--------+-----+
+|       Name      | BRAM_18K|  DSP |   FF   |   LUT  | URAM|
++-----------------+---------+------+--------+--------+-----+
+|DSP              |        -|     -|       -|       -|    -|
+|Expression       |        -|     -|       0|      39|    -|
+|FIFO             |        -|     -|       -|       -|    -|
+|Instance         |        0|     -|     150|     232|    0|
+|Memory           |        -|     -|       -|       -|    -|
+|Multiplexer      |        -|     -|       -|       -|    -|
+|Register         |        -|     -|       -|       -|    -|
++-----------------+---------+------+--------+--------+-----+
+|Total            |        0|     0|     150|     271|    0|
++-----------------+---------+------+--------+--------+-----+
+|Available        |      288|  1248|  234240|  117120|   64|
++-----------------+---------+------+--------+--------+-----+
+|Utilization (%)  |        0|     0|      ~0|      ~0|    0|
++-----------------+---------+------+--------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    +--------------+------------+---------+----+-----+-----+-----+
+    |   Instance   |   Module   | BRAM_18K| DSP|  FF | LUT | URAM|
+    +--------------+------------+---------+----+-----+-----+-----+
+    |CTRL_s_axi_U  |CTRL_s_axi  |        0|   0|  150|  232|    0|
+    +--------------+------------+---------+----+-----+-----+-----+
+    |Total         |            |        0|   0|  150|  232|    0|
+    +--------------+------------+---------+----+-----+-----+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +--------------+----------+----+---+----+------------+------------+
+    | Variable Name| Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +--------------+----------+----+---+----+------------+------------+
+    |c             |         +|   0|  0|  39|          32|          32|
+    +--------------+----------+----+---+----+------------+------------+
+    |Total         |          |   0|  0|  39|          32|          32|
+    +--------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    N/A
+
+    * Register: 
+    N/A
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------+-----+-----+------------+-----------------+--------------+
+|      RTL Ports     | Dir | Bits|  Protocol  |  Source Object  |    C Type    |
++--------------------+-----+-----+------------+-----------------+--------------+
+|s_axi_CTRL_AWVALID  |   in|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_AWREADY  |  out|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_AWADDR   |   in|    6|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_WVALID   |   in|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_WREADY   |  out|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_WDATA    |   in|   32|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_WSTRB    |   in|    4|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_ARVALID  |   in|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_ARREADY  |  out|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_ARADDR   |   in|    6|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_RVALID   |  out|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_RREADY   |   in|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_RDATA    |  out|   32|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_RRESP    |  out|    2|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_BVALID   |  out|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_BREADY   |   in|    1|       s_axi|             CTRL|       pointer|
+|s_axi_CTRL_BRESP    |  out|    2|       s_axi|             CTRL|       pointer|
+|ap_clk              |   in|    1|  ap_ctrl_hs|  add_two_numbers|  return value|
+|ap_rst_n            |   in|    1|  ap_ctrl_hs|  add_two_numbers|  return value|
+|interrupt           |  out|    1|  ap_ctrl_hs|  add_two_numbers|  return value|
++--------------------+-----+-----+------------+-----------------+--------------+
+
