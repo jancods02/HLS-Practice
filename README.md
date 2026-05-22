@@ -22,7 +22,6 @@ Binds Logic: Connects the scheduled operations to the physical FPGA fabric.
 
 5. C/RTL Co-Simulation
 Now that you have hardware code (RTL), you need to verify it against your original C++ testbench.
-The tool "wraps" your Verilog/VHDL code and runs it inside a hardware simulator (like Vivado Simulator or ModelSim).
 The C++ testbench feeds data into the simulator and checks if the hardware output matches the software's expected output.
 
 6. Export the IP (Intellectual Property)
